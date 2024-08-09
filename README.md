@@ -29,7 +29,7 @@ for full demonstration of the training process.
 
 | Classifier | Parameters | Preprocessing | Optimizer | Run time | Max. test accuracy |
 | --- | --- | --- | --- | --- | --- |
-| 2 Conv + 1 FC | ~11k | Scaling + Standardization (subtract the mean + divide by stddev) | Adam | 100 sec | 0.9063 |
-| 2 Conv + 3 FC | ~62k | Scaling + Standardization | SGD | 120 sec | 0.9079 |
-| 2 Conv + 3 FC | ~62k | Scaling + Standardization | RMSProp | 90 sec | 0.9015 |
-| 3 Conv + 2 FC | ~193k | None | RMSProp | 180 sec | 0.9038 |
+| 2 Conv + 1 FC | ~11k | Scaling + Standardization (subtract the mean + divide by stddev) | Adam | 100 s | 0.9063 |
+| 2 Conv + 3 FC | ~62k | Scaling + Standardization | SGD | 120 s | 0.9079 |
+| 2 Conv + 3 FC | ~62k | Scaling + Standardization | RMSProp | 90 s | 0.9015 |
+| 3 Conv + 2 FC | ~193k | None | RMSProp | 180 s | 0.9038 |
