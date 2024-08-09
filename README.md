@@ -1,4 +1,4 @@
-An **unoptimized** implementation of convolutional neural network made from
+An **unoptimized** implementation of convolutional neural network, made from
 scratch (well technically it does have dependencies but they're pre-installed)
 in CUDA/C++.
 
@@ -12,7 +12,7 @@ Other dependencies include Thrust and cuRAND libraries (which are probably
 shipped along with the compiler).
 
 ```bash
-git clone --branch main https://github.com/ceilight/cudaranai
+git clone --branch main https://github.com/ceilight/cudaranai.git
 cd cudaranai
 mkdir build
 cd build
@@ -24,12 +24,15 @@ make
 
 Table below documents the result of training different classifiers on
 [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset after
-30 epochs. Refer to this [notebook](https://colab.research.google.com/drive/1PTEictwtufbPmYrmPti-UT2d56daOq6B?usp=sharing)
-for full demonstration of the training process.
+30 epochs. Test accuracy may differ due to batch size, random seed for weight
+initialization, etc.
 
-| Classifier | Parameters | Preprocessing | Optimizer | Run time | Max. test accuracy |
-| --- | --- | --- | --- | --- | --- |
-| 2 Conv + 1 FC | ~11k | Scaling + Standardization (subtract the mean + divide by stddev) | Adam | 100 s | 0.9063 |
-| 2 Conv + 3 FC | ~62k | Scaling + Standardization | SGD | 120 s | 0.9079 |
-| 2 Conv + 3 FC | ~62k | Scaling + Standardization | RMSProp | 90 s | 0.9015 |
-| 3 Conv + 2 FC | ~193k | None | RMSProp | 180 s | 0.9038 |
+| Classifier | Preprocessing | Optimizer | Run time | Max. test accuracy |
+| --- | --- | --- | --- | --- |
+| 2 Conv + 1 FC ~11k params | Standardization (mean removal, variance scaling) | Adam | 100 sec | 0.9063 |
+| 2 Conv + 3 FC ~62k params | Standardization | SGD | 120 sec | 0.9079 |
+| 2 Conv + 3 FC ~62k params | Standardization | RMSProp | 90 sec | 0.9015 |
+| 3 Conv + 2 FC ~193k params | Scaling | RMSProp | 180 sec | 0.9038 |
+
+Refer to this [notebook](https://colab.research.google.com/drive/1PTEictwtufbPmYrmPti-UT2d56daOq6B?usp=sharing)
+for full demonstration of the training process.
