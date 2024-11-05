@@ -49,6 +49,37 @@ void test_maxpool_forward() {
     std::cout << "test_maxpool_forward: Passed" << std::endl;
 }
 
+void test_maxpool_forward_case2() {
+    int batch_size = 2;
+    int in_feats = 2;
+    int in_h = 3;
+    int in_w = 3;
+
+    // Should pad a row to the bottom and a column to the right
+    //
+    // 1 3 2 .   0 1 1 .   2 2 2 .   5 4 3 .
+    // 1 4 6 .   0 1 0 .   2 2 2 .   2 4 5 .
+    // 5 1 1 .   2 1 2 .   2 2 2 .   6 1 3 .
+    // . . . .   . . . .   . . . .   . . . .
+    //
+    // After pooling, it should be
+    // 4 6   1 1   2 2   5 5
+    // 5 1   2 2   2 2   6 3
+    Array input({2, 2, 3, 3}, {1, 3, 2, 1, 4, 6, 5, 1, 1,
+                               0, 1, 1, 0, 1, 0, 2, 1, 2,
+                               2, 2, 2, 2, 2, 2, 2, 2, 2,
+                               5, 4, 3, 2, 4, 5, 6, 1, 3});
+
+    Array output({2, 2, 2, 2});
+    Array indices({2, 2, 2, 2});
+
+    maxpool_forward(&output, &input, &indices, 1, 1, 2, 2, 2, 2);
+    check_equal_vecs(output.get_vec(),
+                     {4, 6, 5, 1, 1, 1, 2, 2, 2, 2, 2, 2, 5, 5, 6, 3});
+
+    std::cout << "test_maxpool_forward_case2: Passed" << std::endl;
+}
+
 void test_maxpool_backward() {
     Array input({2, 2, 4, 4}, {1, 3, 2, 1, 4, 6, 5, 1, 1, 2, 1, 3, 0, 2, 4, 1,
                                0, 1, 1, 0, 1, 0, 2, 1, 2, 3, 1, 2, 1, 0, 1, 3,
@@ -75,5 +106,6 @@ void test_maxpool_backward() {
 
 int main() {
     test_maxpool_forward();
+    test_maxpool_forward_case2();
     test_maxpool_backward();
 }
